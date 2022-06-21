@@ -1,0 +1,245 @@
+{
+    "todo": {
+        "prefix": "to",
+        "scope": "markdown,yaml",
+        "body": "- [ ] ",
+        "description": "render todo box"
+    },
+    "date": {
+        "prefix": "da",
+        "scope": "markdown,yaml",
+        "body": " | $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT)",
+        "description": "today's date"
+    },
+    "full-date": {
+        "prefix": "date",
+        "scope": "markdown,yaml",
+        "body": "($CURRENT_DAY_NAME, $CURRENT_MONTH_NAME $CURRENT_MONTH, $CURRENT_YEAR - $CURRENT_YEAR.$CURRENT_MONTH.$CURRENT_DATE)",
+        "description": "Full date for logging tasks"
+    },
+    "lint_checking": {
+        "prefix": "lin",
+        "body": [
+            // transform   ::= '/' regex '/' (format | text)+ '/' options 
+        //   "${TM_SELECTED_TEXT}",
+        // /(.*)\binbox\b(.*)/gm
+        //   "${TM_SELECTED_TEXT/(.*)\binbox\b(.*)/closed$0/gm}",   ^.*(inbox|next|waiting|someday|cal).*$   /(?:inbox)+/closed/gm
+          "${TM_SELECTED_TEXT/^.*(inbox|next|waiting|someday|cal).*$/closed/gm}",
+        //   "${TM_SELECTED_TEXT/(?:inbox)+/closed/gm}",
+        //   "${TM_SELECTED_TEXT/^(\\w+)/${1:/capitalize}/}"
+        //   ["${TM_SELECTED_TEXT/^.+$/• $0/gm}"]
+        //   ${«variable or placeholder»/«regex»/«replacement string»/«flags»}
+        //   "${TM_SELECTED_TEXT/(.*)\binbox\b(.*)/gm}",
+          //   "${TM_SELECTED_TEXT/(.*)\binbox\b(.*)/gm/closed/}",
+        ],
+        "description": "lint pragmas"
+      },
+      "test1": {
+        "prefix": "tes",
+        "body": [
+            "public {(1:int} ${2:MyProperty} {get; set;}$0"
+        ],
+        "description": "public {(1:int} ${2:MyProperty} {get; set;}$0"
+    },
+    "example": {
+        "prefix": "example",
+        "body": [
+          "${4:${TM_FILENAME_BASE/(.*)$/${1:/pascalcase}/}} ${1:name1} = _${1};",
+          "${4} ${2:name2} = _${2};",
+          "${4} ${3:name3} = _${3};",
+        ]
+      },
+      "daily-inbox": {
+        "prefix": "dai",
+        "body": [
+          "",
+          "## ${1:TITLE}",
+          "",
+          "",
+          "",
+          "",
+          "---",
+          "",
+          "",
+          "",
+
+        ]
+      },
+      "closed2": {
+        "prefix": "cl",
+        "scope": "markdown,yaml",
+        
+        // "body": "${TM_SELECTED_TEXT/\W(\#[a-zA-Z]+\b)/closed/g}",
+        // "body": "$CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT)${TM_SELECTED_TEXT/(inbox|next|waiting|someday|cal)/closed/g}",
+        "body": "${TM_SELECTED_TEXT/(inbox|next|waiting|someday|cal)/closed/g}",
+        // "body": "${TM_SELECTED_TEXT/(?:inbox)+/closed/g} $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT)",
+        "description": "close an action"
+    },
+    "closed": {
+        "prefix": "cl",
+        "scope": "markdown,yaml",
+        
+        // "body": "${TM_SELECTED_TEXT/\W(\#[a-zA-Z]+\b)/closed/g}",
+        "body": "${TM_SELECTED_TEXT/(?:inbox)+/closed/g}",
+        // "body": "${TM_SELECTED_TEXT/(?:inbox)+/closed/g} $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT)",
+        "description": "close an action"
+    },
+    
+    "someday": {
+        "prefix": "so",
+        "scope": "markdown,yaml",
+        "body": "${TM_SELECTED_TEXT/(?:inbox)+/someday/g}",
+        // "body": "${TM_SELECTED_TEXT/(?:inbox)+/closed/g} $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT)",
+        "description": "someday an action"
+    },
+    "time": {
+        "prefix": "time",
+        "scope": "markdown,yaml",
+        "body": "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE",
+        "description": "time"
+    },   
+    "inbox": {
+        "prefix": "in",
+        "scope": "markdown,yaml",
+        "body": "#inbox ${1:description}",
+        // "body": "#inbox $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT) ${1:description}",
+        "description": "Inbox - GTD"
+    },
+    "waiting": {
+        "prefix": "wa",
+        "scope": "markdown,yaml",
+        "body": "#waiting ${1:personName} ${2:description}",
+        // "body": "#waiting $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT) ${1:personName} ${2:description}",
+        "description": "Waiting - GTD"
+    },
+    "next": {
+        "prefix": "ne",
+        "scope": "markdown,yaml",
+        "body": "#next ${1:description}",
+        // "body": "#next $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT) ${1:description}",
+        "description": "Next - GTD"
+    },
+    // "gtd-archive": {
+    //     "prefix": "gtd",
+    //     "scope": "markdown,yaml",
+    //     "body": "#archive ${1:description}",
+    //     // "body": "#archive $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT) ${1:description}",
+    //     "description": "Archive - GTD"
+    // },
+    // "gtd-inbox-advanced": {
+    //     "prefix": "g",
+    //     "scope": "markdown,yaml",
+    //     "body": "- [ ] #inbox $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT) ${1:description}",
+    //     "description": "Inbox - GTD"
+    // },
+    // "gtd-test": {
+    //     "prefix": "gtd",
+    //     "scope": "markdown,yaml",
+    //     "body": [
+    //         "$TM_FILENAME_BASE"
+    //     ],
+    //     "description": "GTD - Test Action"
+    // },
+    "project": {
+        "prefix": "project",
+        "scope": "markdown,yaml",
+        "body": [
+            "[[${1:projectName}]]",
+        ],
+        "description": "Track project actions with project H2"
+    },
+    "project-track-full": {
+        "prefix": "project",
+        "scope": "markdown,yaml",
+        "body": [
+            "- ## [[${1:projectName}]]",
+            "  - ![[${1:projectName}#^gtd-actions-start:#*]]"
+        ],
+        "description": "Track project actions with project H2"
+    },
+    "flow-process": {
+        "prefix": "flow",
+        "scope": "markdown,yaml",
+        "body": [
+            "--> id${1:#}[${2:Descritpion}]"
+        ],
+        "description": "Track project actions with project H2"
+    },
+    "flow-io": {
+        "prefix": "flow",
+        "scope": "markdown,yaml",
+        "body": [
+            "--> id${1:#}[/${2:Descritpion}/]"
+        ],
+        "description": "Input/Output"
+    },
+    "flow-decision": {
+        "prefix": "flow",
+        "scope": "markdown,yaml",
+        "body": [
+            "--> id${1:#}{${2:Decision Description}}",
+            "id${1:#} --> |No| id${3:##}",
+            "id${1:#} --> |Yes| id${4:##}[${5:Description}]"
+        ],
+        "description": "Track project actions with project H2"
+    },
+    "project-track": {
+        "prefix": "project",
+        "scope": "markdown,yaml",
+        "body": [
+            "  - ![[${1:projectName}#^gtd-actions-start:#*]]"
+        ],
+        "description": "Track project actions"
+    },
+    "flow-new": {
+        "prefix": "nf",
+        "scope": "markdown,yaml",
+        "body": [
+            "```mermaid",
+            "graph TB;",
+            "id${1:#}([${2:Descritpion}])",
+            "```"
+        ],
+        "description": "Track project actions"
+    }
+}
+
+
+// [\r\n]|(inbox|next|waiting|someday|cal)
+
+
+
+
+// [\r\n]
+// 1\r\n
+
+// (inbox|next|waiting|someday|cal)
+
+
+// - [ ] #inbox $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT) ${1:description}
+// - [ ] #inbox $CURRENT_DAY_NAME_SHORT($CURRENT_MONTH/$CURRENT_DATE/$CURRENT_YEAR_SHORT) ${1:description}
+
+// id8 --> |No| id3
+// id9 --> |Yes| id10
+
+// using the same varibable name will type in all of the same spots at the same time!
+
+// #waiting @Pam-Wagner _**Tues - 5/3/22**_ confirm firewall rule worked  ^gtd-t
+// #waiting @PersonsName _**Tues - 5/3/22**_ DESCRIPTION  ^gtd-t
+
+
+
+
+
+// (Monday, May 3, 2022 - 2022.05.03)
+// "($CURRENT_DAY_NAME, $CURRENT_MONTH_NAME $CURRENT_MONTH, $CURRENT_YEAR - $CURRENT_YEAR.$CURRENT_MONTH.$CURRENT_DATE)"
+
+
+
+
+
+// #next do the task that is needed 
+// #waiting @user what are we waiting for? - (Wednesday, May 05, 2022 - 2022.05.04)
+
+// https://code.visualstudio.com/docs/editor/userdefinedsnippets
+// https://wiki.dendron.so/notes/9eca1992-7540-4d9d-97fb-328b27748b2c/
